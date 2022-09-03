@@ -1,0 +1,147 @@
+:root{
+    --color1: #000035;
+    --color2: #878E8C;
+    --color3: #DBE5ED;
+    --color4: #DBE5ED;
+    --color5: #F6F6F2;
+}
+.containerLoans {
+    max-height: 800px;
+    max-width: 1280px;
+    min-height: 400px;
+    min-width: 1000px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px;
+  }
+
+.border {
+    height: 369px;
+    width: 290px;
+    background: transparent;
+    border-radius: 10px;
+    transition: border 1s;
+    position: relative;
+  }
+  .border:hover {
+    border: 1px solid #fff;
+  }
+  .card {
+    height: 379px;
+    width: 300px;
+    background: #808080;
+    border-radius: 10px;
+    transition: background 0.8s;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 70px 63px -60px #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .card0 {
+    background: url(/web/assets/img/supra.jpeg) center center no-repeat;
+    background-size: 300px;
+  }
+  .card0:hover {
+    background: url(/web/assets/img/supra.jpeg) left center no-repeat;
+    background-size: 600px;
+  }
+  .card0:hover h4 {
+    opacity: 1;
+  }
+  .card0:hover h5  {
+    opacity: 1;
+  }
+  .card0:hover .fa {
+    opacity: 1;
+  }
+  .card1 {
+    background: url(/web/assets/img/personal.webp) center center no-repeat;
+    background-size: 300px;
+  }
+  .card1:hover {
+    background: url(/web/assets/img/personal.webp) left center no-repeat;
+    background-size: 600px;
+  }
+  .card1:hover h4  {
+    opacity: 1;
+  }
+  .card1:hover h5  {
+    opacity: 1;
+  }
+  .card1:hover .fa {
+    opacity: 1;
+  }
+  .card2 {
+    background: url(/web/assets/img/hipotecario.jpeg) center center no-repeat;
+    background-size: 300px;
+  }
+  .card2:hover {
+    background: url(/web/assets/img/hipotecario.jpeg) left center no-repeat;
+    background-size: 600px;
+  }
+  .card2:hover h4  {
+    opacity: 1;
+  }
+
+  .card2:hover h5  {
+    opacity: 1;
+  }
+  .card2:hover .fa {
+    opacity: 1;
+  }
+  h4 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #fff !important;
+    margin: 20px;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+
+  h5 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #fff !important;
+    margin: 20px;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+  
+  .fa {
+    opacity: 0;
+    transition: opacity 1s;
+  }
+  .icons {
+    position: absolute;
+    fill: #fff;
+    color: #fff;
+    height: 130px;
+    top: 226px;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-around;
+    margin-left: 20px;
+    
+  }
+  
+
+  /* .swal2-popup{
+    background-color: var(--color1) !important;
+  } */
+
+  @media only screen and (min-width:750px) {
+    .containerLoans{
+      margin-left: 9rem;
+    }
+  }
+
+  @media only screen and (min-width: 1440px){
+    .containerLoans{
+      flex-direction: row;
+    }
+  }

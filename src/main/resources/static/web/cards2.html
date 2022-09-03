@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/dashprueba.css">
+    <link rel="shortcut icon" href="./assets/img/favicon-16x16.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/40464329d6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <div class="grid">
+            <header class="header">
+                <i class="fas fa-bars header__menu"></i>
+                <div class="header__search">
+                </div>
+                <div class="header__avatar">
+                    <div class="dropdown">
+                        <ul class="dropdown__list">
+                            <li class="dropdown__list-item">
+                                <span class="dropdown__icon"><i class="far fa-user"></i></span>
+                                <span class="dropdown__title">my profile</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <aside class="sidenav">
+                <div class="sidenav__brand">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <a class="sidenav__brand-link" href="./dashboard2.html">Hubber's<span class="text-light"> bank</span></a>
+                    <i class="fas fa-times sidenav__brand-close"></i>
+                </div>
+                <div class="sidenav__profile">
+                    <div class="sidenav__profile-avatar"></div>{{clients.firstName}}
+                    {{clients.lastName}}
+                    <div class="sidenav__profile-title text-light"></div>
+                </div>
+                <div class="d-flex row--align-h-center">
+                    <ul class="navList">
+                        <li class="navList__heading ">Dashboard<i class="far fa-file-alt"></i></li>
+                        <li>
+                            <div class="navList__subheading d-flex">
+                                <span class="navList__subheading-icon"><i class="fa-solid fa-wallet"></i></span>
+                                <span class="navList__subheading-title">Accounts</span>
+                            </div>
+                            <ul class="subList subList--hidden">
+                                <li class="subList__item"><a href="./dashboard2.html">Principal</a></li>
+                                <li class="subList__item"><a href="./transfers2.html"> new transaction</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="navList__subheading d-flex">
+                                <span class="navList__subheading-icon"><i class="fa-solid fa-credit-card"></i></span>
+                                <span class="navList__subheading-title">cards</span>
+                            </div>
+                            <ul class="subList subList--hidden">
+                                <li class="subList__item"><a href="#"> Your cards</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="navList__subheading d-flex">
+                                <span class="navList__subheading-icon"><i class="fa-solid fa-coins"></i></span>
+                                <span class="navList__subheading-title">loans</span>
+                            </div>
+                            <ul class="subList subList--hidden">
+                                <li class="subList__item"><a href="./loans.html"> your loans </a></li>
+                                <li class="subList__item"><a href="./loans.html"> new loan </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="navList__logout d-flex">
+                                <span class="navList__subheading-icon"><i class="fas fa-sign-out-alt"></i></span>
+                                <span class="navList__subheading-title" @click="logout()">logout</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            <main class="main">
+                <div class="main-header">
+                    <div class="main-header__intro-wrapper">
+                        <div class="main-header__welcome">
+                            <div class="main-header__welcome-title text-light">Your <strong>Cards </strong></div>
+                            <div class="main-header__welcome-subtitle text-light">Take them wherever you go, HB whenever you are</div>
+                        </div>
+                        <div class="quickview">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="main-overview">
+                    <div class="overviewCard  modal-dialog-centered btn-modal" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop2" v-if="clientCards.length <= 5">
+                        <div class="overviewCard-icon overviewCard-icon--calendar">
+                            <i class="fa-solid fa-circle-plus"></i>
+                        </div>
+                        <div class="overviewCard-description" v-if="clientCards.length <6">
+                            <h3 class="overviewCard-title text-dark">New <strong>Card</strong></h3>
+                            <p class="overviewCard-subtitle">where you are, where you go</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade " id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content form-card">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Solicitar Tarjeta</h5>
+                                <button type="button" class="btn-close btn_close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form class="modal-body ">
+                                <div class="mt-4">
+                                    <h4>Seleccione tipo de Tarjeta:</h4>
+                                    <select v-model="newCardType" class="" >
+                                        <option value="DEBIT">DEBITO</option>
+                                        <option value="CREDIT">CREDITO</option>
+                                    </select>
+                                </div>
+                                <div class="mt-4">
+                                    <h4>Seleccione Color de Tarjeta:</h4>
+                                    <select v-model="newCardColor" class="" >
+                                        <option value="GOLD">GOLD</option>
+                                        <option value="TITANIUM">TITANIUM</option>
+                                        <option value="SILVER">SILVER</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <div class="modal-footer" v-if="newCardType != 0 && newCardColor != 0">
+                                <input @click="createCard" type="submit" class="btn-sendTansfer" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__cards ">
+                    <div class="card card--finance d-flex justify-content-center">
+                        <div class="card__header">
+                            <div class="card__header-title text-light">Your <strong>Credit Cards</strong>
+                            </div>
+                        </div>
+                        <div class="containerCards ">
+                            <div class="card__main m-3" v-for="card of creditCard">
+                                <div class="creditCard mt-2 mb-2">
+                                    <div class="face front"
+                                        :class="card.cardColor == 'GOLD' ? 'gold' : card.cardColor == 'SILVER' ? 'silver' : 'titanium'">
+                                        <h3 class="m-3 fw-semibold text-light">{{card.cardColor}}</h3>
+                                        <h2 class="bank"><img src="/web/assets/img/hb.png" class="" alt=""
+                                                id="cardLogo">
+                                        </h2>
+                                        <img class="cips" src="/web/assets/img/chip.png" alt="" id="cardChip">
+                                        <h3 class="number">{{card.cardNumber}}</h3>
+                                        <h5 class="valid"><span>Expires<br></span><span>{{card.fromDate}}</span>
+                                        </h5>
+                                        <div class="col-10 cardHolder d-flex justify-content-between align-items-end">
+                                            <h5>{{card.cardHolder}}</h5>
+                                            <div class="d-flex flex-column align-items-end">
+                                                <img class="" src="/web/assets/img/visa.png" id="cardType"
+                                                    :alt="card.cardType == 'DEBIT' ? 'visa_debit_logo' : 'visa_logo'">
+                                                <h6 v-if="card.cardType == 'DEBIT'">DEBIT</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="face back"
+                                        :class="card.color == 'GOLD' ? 'gold' : card.color == 'SILVER' ? 'silver' : 'titanium'">
+                                        <div class="blackbar"></div>
+                                        <div class="ccvtext">
+                                            <h5>Autorize Signature-not valid unless signed</h5>
+                                            <div class="whiteBar"></div>
+                                            <div class="ccv">{{card.cvv}}</div>
+                                        </div>
+                                        <p class="text">
+                                            If this card is found, please return it to BBM S.A., 742 Evergreen
+                                            Terrace, Springfield, United States of America. Call: (+1 408) 064-7789 or
+                                            any
+                                            branch of BBM S.A.. This card is non-transferable and for the
+                                            exclusive
+                                            use of the Card Holder whose signature appears above. Valid before the
+                                            indicated
+                                            date. The holder must use this Card in accordance with the terms and
+                                            conditions
+                                            that govern its use.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__cards ">
+                    <div class="card card--finance d-flex justify-content-center">
+                        <div class="card__header">
+                            <div class="card__header-title text-light">Your <strong>Debit Cards</strong>
+                            </div>
+                        </div>
+                        <div class="containerCards ">
+                            <div class="card__main m-3" v-for="card of debitCard">
+                                <div class="creditCard mt-2 mb-2">
+                                    <div class="face front"
+                                        :class="card.cardColor == 'GOLD' ? 'gold' : card.cardColor == 'SILVER' ? 'silver' : 'titanium'">
+                                        <h3 class="m-3 fw-semibold text-light">{{card.cardColor}}</h3>
+                                        <h2 class="bank"><img src="/web/assets/img/hb.png" class="" alt=""
+                                                id="cardLogo">
+                                        </h2>
+                                        <img class="cips" src="/web/assets/img/chip.png" alt="" id="cardChip">
+                                        <h3 class="number">{{card.cardNumber}}</h3>
+                                        <h5 class="valid"><span>Expires<br></span><span>{{card.fromDate}}</span>
+                                        </h5>
+                                        <div class="col-10 cardHolder d-flex justify-content-between align-items-end">
+                                            <h5>{{card.cardHolder}}</h5>
+                                            <div class="d-flex flex-column align-items-end">
+                                                <img class="" src="/web/assets/img/visa.png" id="cardType"
+                                                    :alt="card.cardType == 'DEBIT' ? 'visa_debit_logo' : 'visa_logo'">
+                                                <h6 v-if="card.cardType == 'DEBIT'">DEBIT</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="face back"
+                                        :class="card.color == 'GOLD' ? 'gold' : card.color == 'SILVER' ? 'silver' : 'titanium'">
+                                        <div class="blackbar"></div>
+                                        <div class="ccvtext">
+                                            <h5>Autorize Signature-not valid unless signed</h5>
+                                            <div class="whiteBar"></div>
+                                            <div class="ccv">{{card.cvv}}</div>
+                                        </div>
+                                        <p class="text">
+                                            If this card is found, please return it to BBM S.A., 742 Evergreen
+                                            Terrace, Springfield, United States of America. Call: (+1 408) 064-7789 or
+                                            any
+                                            branch of BBM S.A.. This card is non-transferable and for the
+                                            exclusive
+                                            use of the Card Holder whose signature appears above. Valid before the
+                                            indicated
+                                            date. The holder must use this Card in accordance with the terms and
+                                            conditions
+                                            that govern its use.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="footer">
+                <p><span class="footer__copyright">&copy;</span> 2018 MTH</p>
+                <p>Crafted with <i class="fas fa-heart footer__icon"></i> by <a
+                        href="https://www.linkedin.com/in/matt-holland/" target="_blank" class="footer__signature">Matt
+                        H</a></p>
+            </footer>
+        </div>
+
+    </div>
+    <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src='https://www.amcharts.com/lib/3/amcharts.js'></script>
+    <script src='https://www.amcharts.com/lib/3/serial.js'></script>
+    <script src="./archivosjs/cards.js"></script>
+</body>
+
+</html>

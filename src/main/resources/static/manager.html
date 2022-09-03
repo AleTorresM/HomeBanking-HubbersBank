@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <title>Tabla de clientes</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <main>
+            <section>
+                <h2 class="container d-flex justify-content-center mt-4">Client manager</h2>
+                <form class="container" action="">
+                    <div class="mb-3 mt-4">
+                        <label for="Name" class="form-label">Name:</label>
+                        <input type="text" required class="form-control" id="Name" placeholder="Name"  v-model="valueInputName">
+                    </div>
+                    <div class="mb-3 mt-4">
+                        <label for="LastName" class="form-label">Last Name:</label>
+                        <input type="text" required class="form-control" id="LastName" placeholder="LastName" v-model="valueInputLastName">
+                    </div>
+                    <div class="mb-3 mt-4">
+                        <label for="Email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="Email" placeholder="Email@email.com" v-model="valueInputEmail">
+                    </div>
+                    <div class="d-flex justify-content-center" >
+                        <button type="submit" required class="btn btn-success" @click="addClient" >Add client</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="mt-5">
+                <h2 class="container d-flex justify-content-center">Client list</h2>
+                <table class="table container table-bordered border-light text-light mt-3">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="client of arrayClientes">
+                            <td><button @click="deleteClient(client)" class="btn btn-danger me-2" >Delete</button><button class="btn btn-primary" @click="editClient(client)">Edit</button></td>
+                            <td>{{client.firstName}}</td>
+                            <td>{{client.lastName}}</td>
+                            <td>{{client.email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+
+
+
+
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/vue@3"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./archivos js/manager.js"></script>
+</body>
+
+</html>
