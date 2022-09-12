@@ -49,8 +49,7 @@ createApp({
         },
         allTransactions() {
           axios.get("/api/transactions").then((e) =>{
-            this.clientTransactions = e.data
-            this.clientTransactions.sort((a,b) => b.id - a.id);
+            this.clientTransactions = e.data.sort((a,b) => b.id - a.id)
             console.log(this.clientTransactions);
           })
         },

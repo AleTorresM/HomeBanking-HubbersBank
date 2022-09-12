@@ -40,7 +40,6 @@ createApp({
         );
         this.debitCard = this.cardsActive.filter((c) => c.cardType === "DEBIT");
         this.date();
-        this.formateDate(this.clientCards);
         console.log(this.cardsActive);
       });
     },
@@ -50,7 +49,7 @@ createApp({
       });
     },
     date() {
-      this.dateActuallyslices = this.dateActually.slice(2, 7);
+      this.dateActuallyslices = this.dateActually.slice(0,10)
       console.log(this.dateActuallyslices);
     },
     createCard() {

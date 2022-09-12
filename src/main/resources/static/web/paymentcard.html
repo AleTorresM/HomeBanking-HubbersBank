@@ -107,57 +107,92 @@
                 </div>
 
                 <div class="main__cards">
-                    <div class="card card--finance container">
-                        <div class="col1 mt-3">
-                            <div class="card">
-                                <div class="front">
-                                    <div class="type">
-                                        <img class="bankid" />
-                                    </div>
-                                    <span class="chip"></span>
-                                    <span class="card_number">&#x25CF;&#x25CF;&#x25CF;&#x25CF;
-                                        &#x25CF;&#x25CF;&#x25CF;&#x25CF; &#x25CF;&#x25CF;&#x25CF;&#x25CF;
-                                        &#x25CF;&#x25CF;&#x25CF;&#x25CF; </span>
-                                    <div class="date"><span class="date_value">MM / YYYY</span></div>
-                                    <span class="fullname">FULL NAME</span>
+                    <div class="card card--finance contenedor">
+                        <section class="tarjeta" id="tarjeta">
+                            <div class="delantera">
+                                <div class="logo-marca" id="logo-marca">
+                                    <img src="./assets/img/B.png" alt=""> 
                                 </div>
-                                <div class="back">
-                                    <div class="magnetic"></div>
-                                    <div class="bar"></div>
-                                    <span class="seccode">&#x25CF;&#x25CF;&#x25CF;</span>
-                                    <span class="chip"></span><span class="disclaimer">This card is property of Random
-                                        Bank
-                                        of Random corporation. <br> If found please return to Random Bank of Random
-                                        corporation - 21968 Paris, Verdi Street, 34 </span>
+                                <img src="./assets/img/chip.png" class="chip" alt="">
+                                <div class="datos">
+                                    <div class="grupo" id="numero">
+                                        <p class="label">Número Tarjeta</p>
+                                        <p class="numero">#### #### #### ####</p>
+                                    </div>
+                                    <div class="flexbox">
+                                        <div class="grupo" id="nombre">
+                                            <p class="label">Nombre Tarjeta</p>
+                                            <p class="nombre">Jhon Doe</p>
+                                        </div>
+                
+                                        <div class="grupo" id="expiracion">
+                                            <p class="label">Expiracion</p>
+                                            <p class="expiracion"><span class="mes">MM</span> / <span class="year">AA</span></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                
+                            <div class="trasera">
+                                <div class="barra-magnetica"></div>
+                                <div class="datos">
+                                    <div class="grupo" id="firma">
+                                        <p class="label">Firma</p>
+                                        <div class="firma"><p></p></div>
+                                    </div>
+                                    <div class="grupo" id="ccv">
+                                        <p class="label">CCV</p>
+                                        <p class="ccv"></p>
+                                    </div>
+                                </div>
+                                <p class="leyenda">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus exercitationem, voluptates illo.</p>
+                                <a href="#" class="link-banco">www.tubanco.com</a>
+                            </div>
+                        </section>
+                
+                        <!-- Contenedor Boton Abrir Formulario -->
+                        <div class="contenedor-btn">
+                            <button class="btn-abrir-formulario" id="btn-abrir-formulario">
+                                <i class="fas fa-plus"></i>
+                            </button>
                         </div>
-                        <div class="col2">
-                            <label for="">Amount</label>
-                            <input type="number" v-model="payAmount">
-                            <label>Card Number</label>
-                            <input class="number" type="text" ng-model="ncard" maxlength="19"
-                                onkeypress='return event.charCode >= 48 && event.charCode <= 57' v-model="payCardNumber" />
-                            <label>Cardholder name</label>
-                            <input class="inputname" type="text" placeholder="" v-model="payCardHolder" />
-                            <label>Expiry date</label> 
-                            <input class="date" type="text" placeholder="YYYY / MM / DD" v-model="payDateTrhu" />
-                            <label>Security Number</label>
-                            <input class="ccv" type="text" placeholder="CVC" maxlength="3"
-                                onkeypress='return event.charCode >= 48 && event.charCode <= 57' v-model="payCvvNumber"/>
-                            <label>Description</label>
-                            <input type="text" placeholder="Description Payments" v-model="payDescriptions">
-                            <div class="d-flex">
-                                <p>Select Account:</p>
-                                <select name="" id="" class="ms-4" v-model="payAccountNumber">
-                                    <option value="">select one...</option>
-                                    <option  :value="account.number" v-for:="account in activeAccounts">{{account.number}}</option>
+                
+                        <!-- Formulario -->
+                        <form action="" id="formulario-tarjeta" class="formulario-tarjeta" @submit.prevent="">
+                            <div class="grupo">
+                                <label for="inputNumero">Card number</label>
+                                <select name="" id="" v-model="payCardNumber">
+                                    <option value="" selected disabled>select card...</option>
+                                    <option :value="card.cardNumber" v-for="card in cardsActive">{{card.cardNumber}}</option>
                                 </select>
                             </div>
-                            <button class="buy" @click="makePayment"><i class="material-icons">Pay</i></button>
-
-                            {{payAmount}} {{payAccountNumber}} {{payCardHolder}} {{payCardNumber}}{{payCvvNumber}} {{payDateTrhu}}
-                        </div> 
+                            <div class="grupo">
+                                <label for="inputNombre">Name</label>
+                                <input type="text" id="inputNombre" maxlength="19" autocomplete="off" v-model="payCardHolder" placeholder="text name here">
+                                <label for="">Description</label>
+                                <input type="text" v-model="payDescriptions" placeholder="text description here">
+                                <select name="" id="" v-model="payAccountNumber">
+                                    <option value="" selected disabled>select account..</option>
+                                    <option :value="account.number" v-for="account in activeAccounts">{{account.number}}-${{account.balance.toLocaleString('es-MX')}}</option>
+                                </select>
+                                <label for="">Amount</label>
+                                <input type="number" v-model="payAmount" placeholder="$00.00">
+                            </div>
+                            <div class="flexbox">
+                                <div class="grupo expira">
+                                    <label for="selectMes">Expiracion</label>
+                                    <div class="flexbox">
+                                    <input type="text" name="" id="" placeholder="YYYY-MM-DD" v-model="payDateTrhu">
+                                    </div>
+                                </div>
+                                
+                                <div class="grupo ccv">
+                                    <label for="inputCCV">CCV</label>
+                                    <input type="text" id="inputCCV" maxlength="3" v-model="payCvvNumber" placeholder="XXX">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-enviar" @click="makePayment">Pay</button>
+                        </form>
                     </div>
                 </div>
             </main>

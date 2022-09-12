@@ -9,6 +9,7 @@ createApp({
       loanAutomotriz: [],
       loanHipotecario: [],
       loanPersonal: [],
+      cardsActive: [],
       payCardNumber: "",
       payCardHolder: "",
       payDateTrhu: "",
@@ -33,7 +34,7 @@ createApp({
           .sort((a, b) => b.id - a.id);
         this.clientLoans = e.data.loans;
         this.clientCards = e.data.cards;
-        this.formateDate(this.clientCards);
+        this.cardsActive = this.clientCards.filter((ca) => ca.cardActive);
       });
     },
     loadLoans() {
@@ -77,8 +78,19 @@ createApp({
       });
     },
     makePayment() {
-      axios.post('/api/transactions/payment', {cardNumber:this.payCardNumber,cardCVV:this.payCvvNumber,amount:this.payAmount,thruDate:this.payDateTrhu,cardHolder:this.payCardHolder,accountNumber:this.payAccountNumber,description:this.payDescriptions})
-        .then(() => Swal.fire("Payment Request", " ", "success"))
+      Swal.fire({
+        title: 'Are you sure?',
+        showCancelButton: true,
+        confirmButtonText: 'Payment',
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          axios.post('/api/transactions/payment', {cardNumber:this.payCardNumber,cardCVV:this.payCvvNumber,amount:this.payAmount,thruDate:this.payDateTrhu,cardHolder:this.payCardHolder,accountNumber:this.payAccountNumber,description:this.payDescriptions})
+          .then(() => Swal.fire("Successful payment","","success"))
+          .then(()=>window.location.href="./dashboard2.html")
+          .catch(error => Swal.fire(`${error.response.data}`))
+        }
+      })
     },
     logout() {
       axios
@@ -273,3 +285,33 @@ function setSidenavCloseListener() {
     toggleClass(gridEl, GRID_NO_SCROLL_CLASS);
   });
 }
+
+//Payment Method//
+const tarjeta = document.querySelector('#tarjeta'),
+	  btnAbrirFormulario = document.querySelector('#btn-abrir-formulario'),
+	  formulario = document.querySelector('#formulario-tarjeta'),
+	  numeroTarjeta = document.querySelector('#tarjeta .numero'),
+	  nombreTarjeta = document.querySelector('#tarjeta .nombre'),
+	  logoMarca = document.querySelector('#logo-marca'),
+	  firma = document.querySelector('#tarjeta .firma p'),
+	  mesExpiracion = document.querySelector('#tarjeta .mes'),
+	  yearExpiracion = document.querySelector('#tarjeta .year');
+	  ccv = document.querySelector('#tarjeta .ccv');
+
+// * Volteamos la tarjeta para mostrar el frente.
+const mostrarFrente = () => {
+	if(tarjeta.classList.contains('active')){
+		tarjeta.classList.remove('active');
+	}
+}
+
+// * Rotacion de la tarjeta
+tarjeta.addEventListener('click', () => {
+	tarjeta.classList.toggle('active');
+});
+
+// * Boton de abrir formulario
+btnAbrirFormulario.addEventListener('click', () => {
+	btnAbrirFormulario.classList.toggle('active');
+	formulario.classList.toggle('active');
+});

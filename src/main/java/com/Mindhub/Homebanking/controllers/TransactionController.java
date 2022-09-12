@@ -119,7 +119,7 @@ public class TransactionController {
         }if(!account.isAccountActive()){
             return new ResponseEntity<>("account disable, please choose another account", HttpStatus.FORBIDDEN);
         }
-        Transaction transactionPay = new Transaction(account,TransactionType.DEBIT, paymentApplicationDTO.getDescription(), paymentApplicationDTO.getAmount(), LocalDateTime.now());
+        Transaction transactionPay = new Transaction(account,TransactionType.DEBIT, paymentApplicationDTO.getDescription(), -paymentApplicationDTO.getAmount(), LocalDateTime.now());
         transactionService.saveTransaction(transactionPay);
         account.setBalance(account.getBalance()-paymentApplicationDTO.getAmount());
         accountService.saveAccount(account);

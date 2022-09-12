@@ -43,7 +43,7 @@ createApp({
       axios.get("/api/accounts/"+this.id)
       .then(e=>{
           this.account = e.data
-          this.accountTransaction = this.account.transaction
+          this.accountTransaction = this.account.transaction.sort((a,b) => b.id - a.id)
           console.log(this.account)
       })
   },
