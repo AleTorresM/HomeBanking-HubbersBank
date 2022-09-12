@@ -1,36 +1,37 @@
 package com.Mindhub.Homebanking.dtos;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-public class FilteredTransactions {
-    private LocalDate fromDate;
+public class FilteredTransactionsDTO {
+    private LocalDateTime fromDate;
 
-    private LocalDate toDate;
+    private LocalDateTime toDate;
 
     private String accountNumber;
 
 
-    public FilteredTransactions() {}
+    public FilteredTransactionsDTO() {}
 
-    public FilteredTransactions(LocalDate fromDate, LocalDate toDate, String accountNumber) {
+    public FilteredTransactionsDTO(LocalDateTime fromDate, LocalDateTime toDate, String accountNumber) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.accountNumber = accountNumber;
     }
 
-    public LocalDate getFromDate() {
+    public LocalDateTime getFromDate() {
         return fromDate;
     }
-    public void setFromDate(LocalDate fromDate) {
+    public void setFromDate(LocalDateTime fromDate) {
         this.fromDate = fromDate;
     }
 
 
 
-    public LocalDate getToDate() {
+    public LocalDateTime getToDate() {
         return toDate;
     }
-    public void setToDate(LocalDate toDate) {
+    public void setToDate(LocalDateTime toDate) {
         this.toDate = toDate;
     }
 

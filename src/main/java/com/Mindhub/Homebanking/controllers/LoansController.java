@@ -42,13 +42,13 @@ public class LoansController {
 
     public double amountToPay;
 
-    @RequestMapping("/loans")
+    @GetMapping("/loans")
     public List<LoanDTO> getLoans() {
         return loansService.getAllLoans().stream().map(loan -> new LoanDTO(loan)).collect(Collectors.toList());
     }
 
     @Transactional
-    @RequestMapping(path ="/loans", method = RequestMethod.POST)
+    @PostMapping("/loans")
     public ResponseEntity<Object> createdLoan (@RequestBody LoanApplicationDTO loanApplicationDTO, Authentication authentication){
         Client client = clientService.findClientByEmail(authentication.getName());
         Account account = accountService.findByNumber(loanApplicationDTO.getNumbAccount());

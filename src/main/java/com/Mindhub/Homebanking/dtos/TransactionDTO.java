@@ -13,6 +13,10 @@ public class TransactionDTO {
     private double amount;
     private LocalDateTime dateCreation;
 
+    private double postTransaction;
+
+    private double afterTransaction;
+
     public TransactionDTO (){}
 
     public TransactionDTO(Transaction transaction) {
@@ -20,6 +24,8 @@ public class TransactionDTO {
         this.description = transaction.getDescription();
         this.amount = transaction.getAmount();
         this.dateCreation = transaction.getDateCreation();
+        this.postTransaction= transaction.getPostTransaction();
+        this.afterTransaction = transaction.getAfterTransaction();
     }
 
 
@@ -42,5 +48,13 @@ public class TransactionDTO {
 
     public LocalDateTime getDateCreation() {
         return dateCreation;
+    }
+
+    public double getPostTransaction() {
+        return postTransaction;
+    }
+
+    public double getAfterTransaction() {
+        return afterTransaction;
     }
 }

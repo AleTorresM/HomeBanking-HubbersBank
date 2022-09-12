@@ -6,12 +6,14 @@ import com.Mindhub.Homebanking.Services.ClientService;
 import com.Mindhub.Homebanking.dtos.AccountDTO;
 import com.Mindhub.Homebanking.dtos.ClientDTO;
 import com.Mindhub.Homebanking.models.Account;
+import com.Mindhub.Homebanking.models.AccountType;
 import com.Mindhub.Homebanking.models.Client;
 import com.Mindhub.Homebanking.repository.AccountRepository;
 import com.Mindhub.Homebanking.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -31,29 +33,48 @@ public class AccountController {
     private ClientService clientService;
 
     @Autowired
-    private AccountService  accountService;
+    private AccountService accountService;
 
-    @RequestMapping("/accounts")
+    @GetMapping("/accounts")
     public List<AccountDTO> getaccount() {
         return accountService.getAllAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
     }
 
-    @RequestMapping("/accounts/{id}")
+    @GetMapping("/accounts/{id}")
     public AccountDTO getaccount(@PathVariable Long id) {
         return new AccountDTO(accountService.findById(id));
     }
 
-    @RequestMapping(path = "/clients/current/accounts", method = RequestMethod.POST)
+
+    @PostMapping("/clients/current/accounts")
     public ResponseEntity<Object> createAccount(
-            @RequestParam String clientEmail) {
-        Client client = clientService.findClientByEmail(clientEmail);
-        if (client.getAccounts().toArray().length >= 3) {
+            @RequestParam AccountType accountType, Authentication authentication) {
+        Client client = clientService.findClientByEmail(authentication.getName());
+        List<Account> accountList = client.getAccounts().stream().filter(account -> account.isAccountActive()).collect(Collectors.toList());
+        if (accountList.toArray().length >= 3) {
             return new ResponseEntity<>("You already have 3 accounts", HttpStatus.FORBIDDEN);
         } else {
             Random randomNumber = new Random();
-            Account account = new Account("VIN-" + randomNumber.nextInt(100000000), LocalDateTime.now(), 00.00, client);
+            Account account = new Account("VIN-" + randomNumber.nextInt(100000000), LocalDateTime.now(), 00.00,accountType,client);
             accountService.saveAccount(account);
             return new ResponseEntity<>("Account Created", HttpStatus.CREATED);
         }
     }
+
+    @PatchMapping("/clients/current/accounts")
+    public ResponseEntity<Object> disableAccount(
+            @RequestParam String accountNumber , Authentication authentication
+    ){
+        Client client = clientService.findClientByEmail(authentication.getName());
+        Account account = accountService.findByNumber(accountNumber);
+        if (accountNumber.isEmpty()){
+            return new ResponseEntity<>("You not choose account", HttpStatus.FORBIDDEN);
+        }if (!client.getAccounts().contains(account)){
+            return new ResponseEntity<>("This account is not your", HttpStatus.FORBIDDEN);
+        }
+        account.setAccountActive(false);
+        accountService.saveAccount(account);
+        return new ResponseEntity<>("Account disable", HttpStatus.ACCEPTED);
+    }
+
 }

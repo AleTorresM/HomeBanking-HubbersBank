@@ -24,7 +24,7 @@ createApp({
         singUp(){
             axios.post('/api/clients',`firstName=${this.newName}&lastName=${this.newLast}&email=${this.newEmail}&password=${this.newPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
             .then(()=> axios.post('/api/login',`email=${this.newEmail}&password=${this.newPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}}))
-            .then(()=>axios.post('/api/clients/current/accounts/', `clientEmail=${this.newEmail}`,{headers: {'Content-type': 'application/x-www-form-urlencoded'}}) )
+            .then(()=> axios.post('/api/clients/current/accounts', `accountType=SAVING`),{headers:{'content-type':'application/x-www-form-urlencoded'}})
             .then(()=>window.location.href="/web/dashboard2.html")
     },
 },

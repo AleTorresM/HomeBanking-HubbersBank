@@ -6,18 +6,19 @@ body {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-:root{
+:root {
     --color1: #000035;
     --color2: #878E8C;
     --color3: #DBE5ED;
     --color4: #DBE5ED;
     --color5: #F6F6F2;
 }
+
 a {
     text-decoration: none !important;
 }
 
-a:hover{
+a:hover {
     color: #fff !important;
 }
 
@@ -217,13 +218,14 @@ a:hover{
     cursor: pointer;
 }
 
-.fa-building-columns{
+.fa-building-columns {
     color: var(--color2);
 }
+
 .sidenav__brand-link {
     font-size: 18px;
     font-weight: bold;
-    color:var(--color3);
+    color: var(--color3);
     margin: 0 15px;
     letter-spacing: 1.5px;
 }
@@ -508,6 +510,10 @@ a:hover{
     background-color: #af64cc;
 }
 
+.overviewCard-icon--delete{
+    background-color: red;
+}
+
 .overviewCard-description {
     display: flex;
     flex-direction: column;
@@ -551,7 +557,7 @@ a:hover{
 
 .card__header-title {
     margin: 0 20px;
-    font-size: 20px;
+    font-size: 15px;
     letter-spacing: 1.2px;
 }
 
@@ -672,6 +678,14 @@ a:hover{
     position: relative;
 }
 
+.card--video{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background-color: #fff;
+        margin-bottom: 20px;
+        -webkit-column-break-inside: avoid;
+}
 .settings {
     display: flex;
     margin: 8px;
@@ -759,38 +773,41 @@ a:hover{
 .footer {
     grid-area: footer;
     display: flex;
+    min-height: 10vh;
     align-items: center;
     justify-content: space-between;
     padding: 0 16px;
     color: #fff;
-    background-color:var(--color2);
+    background-color: var(--color2);
 }
-#logoFooter{
+
+#logoFooter {
     width: 40px;
     height: 40px;
 }
 
 .footer__copyright {
-    color: #1bbae1;
+    color: var(--color1);
 }
 
 .footer__icon {
     color: #e74c3c;
 }
-.footer__header{
+
+.footer__header {
     display: flex;
     align-items: center;
     margin: 10px;
 }
 
 .footer__signature {
-    color: #1bbae1;
+    color: var(--color1);
     cursor: pointer;
     font-weight: bold;
 }
 
-.footer__signature:hover{
-    color: var(--color1) !important;
+.footer__signature:hover {
+    color: #1bbae1 !important;
 }
 
 /*Forms*/
@@ -801,6 +818,7 @@ a:hover{
     padding-left: -2.5em;
     margin-bottom: 0.125rem;
 }
+
 
 
 /* cards credit/debit*/
@@ -827,13 +845,14 @@ a:hover{
     backface-visibility: hidden;
 }
 
-#cardLogo{
+#cardLogo {
     width: 70PX;
 }
 
-#cardType{
+#cardType {
     width: 100px;
 }
+
 .gold {
     background-image: url(/web/assets/img/bola.jpeg);
     background-position-x: 1000px;
@@ -929,7 +948,7 @@ a:hover{
     letter-spacing: 2px;
 }
 
-.creditCard .face.back{
+.creditCard .face.back {
     position: absolute;
     top: 0;
     left: 0;
@@ -1000,32 +1019,33 @@ a:hover{
     font-weight: 300;
 }
 
-.accordion, .accordion-item{
+.accordion,
+.accordion-item {
     border: none !important;
 }
 
 /*End creditCards*/
 
-.container_loans{
+.container_loans {
     margin-top: 20px;
     margin-top: 40px;
 }
 
 
-.container_loans_header>i{
+.container_loans_header>i {
     background-color: transparent;
     font-size: 30px;
     margin-right: 50px;
     color: var(--colo1);
 }
 
-.container_loans_header>i:hover{
+.container_loans_header>i:hover {
     cursor: pointer;
     color: var(--color4);
 }
 
 
-.container_loans_header{
+.container_loans_header {
     display: flex;
     justify-content: space-between;
     padding-top: 15px;
@@ -1033,13 +1053,13 @@ a:hover{
     border-bottom: var(--color4)outset 5px;
 }
 
-.container_loans_header h3{
+.container_loans_header h3 {
     color: var(--color1) !important;
-    font-weight: bold!important; 
+    font-weight: bold !important;
 }
 
 
-.container_loans_body{
+.container_loans_body {
     background-color: var(--color5) !important;
     color: var(--color1);
     padding: 20px;
@@ -1049,12 +1069,12 @@ a:hover{
     min-height: 20vh;
 }
 
-.container_loans_body2{
+.container_loans_body2 {
     display: flex;
     justify-content: space-around;
 }
 
-.container_loans_footer{
+.container_loans_footer {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -1063,138 +1083,197 @@ a:hover{
     border-radius: 10px;
 }
 
-.container_loans_footer>h6{
-    color: var(--color3)!important;
+.container_loans_footer>h6 {
+    color: var(--color3) !important;
     font-size: 15px;
-    font-weight: bold!important;
-    cursor: pointer;
-}
-.container_loans_footer>p{
-    color: var(--color3)!important;
-    font-size: 15px;
-    font-weight: bold!important;
+    font-weight: bold !important;
     cursor: pointer;
 }
 
+.container_loans_footer>p {
+    color: var(--color3) !important;
+    font-size: 15px;
+    font-weight: bold !important;
+    cursor: pointer;
+}
 
 /*BTNS*/
-.btn{
+.btn {
     color: #fff !important;
 }
 
-.btn-sendTansfer{
-    background-color: var(--color1) !important;
+.btn-sendTansfer {
+    width: 120px;
+    height: 40px;
+    background: linear-gradient(to top, #00154c, #12376e, #23487f);
     color: #fff;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.btn-sendTansfer span {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: top 0.5s;
+}
+
+.btn-text-one {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.btn-text-two {
+    position: absolute;
+    width: 100%;
+    top: 150%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.btn-sendTansfer:hover .btn-text-one {
+    top: -100%;
+}
+
+.btn-sendTansfer:hover .btn-text-two {
+    top: 50%;
 }
 
 
+
+
 /*MODAL TRANS*/
-.modal-content{
+.modal-content {
     background-image: url(/web/assets/img/fondoform.jpeg);
     background-position: top;
     background-repeat: no-repeat;
     color: #fff !important;
 }
 
-input{
+input {
     border-radius: 8px;
 }
 
-select{
+select {
     border-radius: 8px;
 }
 
 @media screen and (min-width:375px) {
-    .creditCard .face{
+    .creditCard .face {
         width: 60%;
-}
-.creditCard .face.back{
-    width: 60%;
-}
-.creditCard .face.back .ccvtext{
-    left: 30px;
-}
+    }
+
+    .creditCard .face.back {
+        width: 60%;
+    }
+
+    .creditCard .face.back .ccvtext {
+        left: 30px;
+    }
 }
 
 @media screen and (min-width: 425px) {
-    .creditCard .face{
+    .creditCard .face {
         width: 70%;
     }
-.creditCard .face.back{
-    width: 70%;
-    }
-.creditCard .face.back .ccvtext{
-    left: 30px;
+
+    .creditCard .face.back {
+        width: 70%;
     }
 
-.creditCard .face.back .blackbar {
-    position: absolute;
-    top: 30px;
-    width: 100%;
-    height: 45px;
-    background: #000;
+    .creditCard .face.back .ccvtext {
+        left: 30px;
     }
-    .creditCard .face.back .ccvtext{
+
+    .creditCard .face.back .blackbar {
+        position: absolute;
+        top: 30px;
+        width: 100%;
+        height: 45px;
+        background: #000;
+    }
+
+    .creditCard .face.back .ccvtext {
         top: 90px;
     }
-    .creditCard .face.back .ccvtext .whiteBar{
+
+    .creditCard .face.back .ccvtext .whiteBar {
         width: 230px;
     }
-    .creditCard .face.back .ccvtext .ccv{
+
+    .creditCard .face.back .ccvtext .ccv {
         left: 223px;
     }
-    .creditCard .face.back .text{
+
+    .creditCard .face.back .text {
         font-size: 11px;
     }
 }
 
 
-@media screen and (min-width: 525px){
-    .creditCard .face{
+@media screen and (min-width: 525px) {
+    .creditCard .face {
         width: 90%;
     }
-.creditCard .face.back{
-    width: 90%;
-    }
-.creditCard .face.back .ccvtext{
-    left: 30px;
+
+    .creditCard .face.back {
+        width: 90%;
     }
 
-.creditCard .face.back .blackbar {
-    position: absolute;
-    top: 30px;
-    width: 100%;
-    height: 45px;
-    background: #000;
+    .creditCard .face.back .ccvtext {
+        left: 30px;
     }
-    .creditCard .face.front .number{
+
+    .creditCard .face.back .blackbar {
+        position: absolute;
+        top: 30px;
+        width: 100%;
+        height: 45px;
+        background: #000;
+    }
+
+    .creditCard .face.front .number {
         font-size: 30px;
     }
+
     .creditCard .face.front .valid {
         font-size: 22px;
     }
-    .creditCard .face.front .cardHolder{
+
+    .creditCard .face.front .cardHolder {
         left: 60px;
     }
-    .creditCard .face.back .ccvtext{
+
+    .creditCard .face.back .ccvtext {
         top: 90px;
     }
-    .creditCard .face.back .ccvtext .whiteBar{
+
+    .creditCard .face.back .ccvtext .whiteBar {
         width: 230px;
     }
-    .creditCard .face.back .ccvtext .ccv{
+
+    .creditCard .face.back .ccvtext .ccv {
         left: 223px;
     }
-    .creditCard .face.back .text{
+
+    .creditCard .face.back .text {
         font-size: 11px;
     }
 
-    #cardLogo{
-    width: 100PX;
+    #cardLogo {
+        width: 100PX;
     }
 
-#cardType{
-    width: 120px;
+    #cardType {
+        width: 120px;
     }
 }
 
@@ -1233,28 +1312,41 @@ select{
         width: 40px;
         height: 40px;
     }
-    .creditCard .face.back .ccvtext h5{
+
+    .creditCard .face.back .ccvtext h5 {
         font-size: 13px;
     }
-    .creditCard .face.back .ccvtext{
+
+    .creditCard .face.back .ccvtext {
         top: 90px;
     }
-    .creditCard .face.back .ccvtext .whiteBar{
+
+    .creditCard .face.back .ccvtext .whiteBar {
         width: 340px;
     }
-    .creditCard .face.back .ccvtext .ccv{
+
+    .creditCard .face.back .ccvtext .ccv {
         left: 330px;
     }
-    .creditCard .face.back .text{
+
+    .creditCard .face.back .text {
         font-size: 12px;
         letter-spacing: 2;
     }
-
+    .card__header-title{
+        font-size: 20px;
+    }
 }
 
 @media only screen and (min-width: 1050px) {
+    .containerCards {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
     .main__cards {
-        column-count: 2;
+        column-count: 1;
     }
 
 
@@ -1273,7 +1365,7 @@ select{
         transform-style: preserve-3d;
         perspective: 500px;
     }
-    
+
     .creditCard .face {
         position: absolute;
         top: 0;
@@ -1287,23 +1379,23 @@ select{
         transition: 1s;
         backface-visibility: hidden;
     }
-    
-    #cardLogo{
+
+    #cardLogo {
         width: 100PX;
     }
-    
+
     .creditCard:hover .face.front {
         transform: rotateY(180deg);
     }
-    
+
     .creditCard:hover .face.back {
         transform: rotateY(360deg);
     }
-    
+
     .creditCard .face.back {
         transform: rotateY(180deg);
     }
-    
+
     .creditCard .face.front .debit {
         position: absolute;
         left: 40px;
@@ -1311,7 +1403,7 @@ select{
         color: #fff;
         font-weight: 500;
     }
-    
+
     .creditCard .face.front .bank {
         position: absolute;
         right: 40px;
@@ -1321,14 +1413,14 @@ select{
         font-style: italic;
         font-size: 2rem;
     }
-    
+
     .creditCard .face.front .cips {
         position: absolute;
         top: 80px;
         left: 50px;
         max-width: 64px;
     }
-    
+
     .creditCard .face.front .number {
         position: absolute;
         bottom: 130px;
@@ -1340,7 +1432,7 @@ select{
         text-shadow: 0 2px 1px #0005;
         font-family: 'Orbitron', sans-serif;
     }
-    
+
     .creditCard .face.front .valid {
         position: absolute;
         bottom: 90px;
@@ -1353,15 +1445,15 @@ select{
         line-height: 1em;
         text-align: right;
     }
-    
+
     .creditCard .face.front .valid span:last-child {
         margin-left: 20px;
         font-size: 16px;
         font-weight: 400;
         letter-spacing: 2px;
-    
+
     }
-    
+
     .creditCard .face.front .cardHolder {
         position: absolute;
         bottom: 40px;
@@ -1371,8 +1463,8 @@ select{
         font-size: 16px;
         letter-spacing: 2px;
     }
-    
-    .creditCard .face.back{
+
+    .creditCard .face.back {
         position: absolute;
         top: 0;
         left: 0;
@@ -1385,7 +1477,7 @@ select{
         transition: 1s;
         backface-visibility: hidden;
     }
-    
+
     .creditCard .face.back .blackbar {
         position: absolute;
         top: 40px;
@@ -1393,13 +1485,13 @@ select{
         height: 60px;
         background: #000;
     }
-    
+
     .creditCard .face.back .ccvtext {
         position: absolute;
         top: 120px;
         left: 30px;
     }
-    
+
     .creditCard .face.back .ccvtext h5 {
         color: #fff;
         font-weight: 400;
@@ -1407,7 +1499,7 @@ select{
         text-transform: uppercase;
         letter-spacing: 2px;
     }
-    
+
     .creditCard .face.back .ccvtext .whiteBar {
         position: relative;
         width: 400px;
@@ -1415,7 +1507,7 @@ select{
         background: #fff;
         margin-top: 5px;
     }
-    
+
     .creditCard .face.back .ccvtext .ccv {
         position: relative;
         top: -35px;
@@ -1430,7 +1522,7 @@ select{
         justify-content: center;
         align-items: center;
     }
-    
+
     .creditCard .face.back .text {
         position: absolute;
         bottom: 30px;
@@ -1441,23 +1533,35 @@ select{
         line-height: 1.4em;
         font-weight: 300;
     }
-    
-    .accordion, .accordion-item{
+
+    .accordion,
+    .accordion-item {
         border: none !important;
     }
-    
-    
+
+    .card__header-title{
+        font-size: 20px;
+    }
+
 }
 
-@media only screen and (min-width: 1440px){
-    .containerCards{
+@media only screen and (min-width: 1440px) {
+    .containerCards {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
     }
+
     .main__cards {
         column-count: 1;
     }
+    .main__cards {
+        display: flex;
+        column-count: 1;
+        column-gap: 20px;
+        margin: 20px;
+    }
+    .card__header-title{
+        font-size: 20px;
+    }
 }
-
-

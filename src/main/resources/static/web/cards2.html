@@ -39,7 +39,8 @@
             <aside class="sidenav">
                 <div class="sidenav__brand">
                     <i class="fa-solid fa-building-columns"></i>
-                    <a class="sidenav__brand-link" href="./dashboard2.html">Hubber's<span class="text-light"> bank</span></a>
+                    <a class="sidenav__brand-link" href="./dashboard2.html">Hubber's<span class="text-light">
+                            bank</span></a>
                     <i class="fas fa-times sidenav__brand-close"></i>
                 </div>
                 <div class="sidenav__profile">
@@ -57,7 +58,6 @@
                             </div>
                             <ul class="subList subList--hidden">
                                 <li class="subList__item"><a href="./dashboard2.html">Principal</a></li>
-                                <li class="subList__item"><a href="./transfers2.html"> new transaction</a></li>
                             </ul>
                         </li>
                         <li>
@@ -93,22 +93,54 @@
                     <div class="main-header__intro-wrapper">
                         <div class="main-header__welcome">
                             <div class="main-header__welcome-title text-light">Your <strong>Cards </strong></div>
-                            <div class="main-header__welcome-subtitle text-light">Take them wherever you go, HB whenever you are</div>
+                            <div class="main-header__welcome-subtitle text-light">Take them wherever you go, HB whenever
+                                you are</div>
                         </div>
-                        <div class="quickview">
-
-                        </div>
+                        <div class="quickview"></div>
                     </div>
                 </div>
                 <div class="main-overview">
                     <div class="overviewCard  modal-dialog-centered btn-modal" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop2" v-if="clientCards.length <= 5">
+                        data-bs-target="#staticBackdrop2" v-if="cardsActive.length < 6">
                         <div class="overviewCard-icon overviewCard-icon--calendar">
                             <i class="fa-solid fa-circle-plus"></i>
                         </div>
-                        <div class="overviewCard-description" v-if="clientCards.length <6">
+                        <div class="overviewCard-description">
                             <h3 class="overviewCard-title text-dark">New <strong>Card</strong></h3>
                             <p class="overviewCard-subtitle">where you are, where you go</p>
+                        </div>
+                    </div>
+                    <div class="overviewCard  modal-dialog-centered btn-modal" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop3">
+                        <div class="overviewCard-icon overviewCard-icon--delete">
+                            <i class="fa-solid fa-x"></i>
+                        </div>
+                        <div class="overviewCard-description">
+                            <h3 class="overviewCard-title text-dark">Delete <strong>Card</strong></h3>
+                            <p class="overviewCard-subtitle">Bye Bye!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade " id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content form-card">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Delete card</h5>
+                                <button type="button" class="btn-close btn_close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form class="modal-body ">
+                                <fieldset class="mt-4" >
+                                    <h4>which card do you want to delete:</h4>
+                                    <select v-model="cardDelete" class="">
+                                        <option :value="card.cardNumber"  v-for="card in cardsActive">{{card.cardNumber}}</option>
+                                    </select>
+                                </fieldset>
+                            </form>
+                            <div class="modal-footer">
+                                <input @click="deletedCard()" type="submit"  />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,15 +155,15 @@
                             </div>
                             <form class="modal-body ">
                                 <div class="mt-4">
-                                    <h4>Seleccione tipo de Tarjeta:</h4>
-                                    <select v-model="newCardType" class="" >
+                                    <h4>Select type Card:</h4>
+                                    <select v-model="newCardType" class="">
                                         <option value="DEBIT">DEBITO</option>
                                         <option value="CREDIT">CREDITO</option>
                                     </select>
                                 </div>
                                 <div class="mt-4">
-                                    <h4>Seleccione Color de Tarjeta:</h4>
-                                    <select v-model="newCardColor" class="" >
+                                    <h4>Select color card:</h4>
+                                    <select v-model="newCardColor" class="">
                                         <option value="GOLD">GOLD</option>
                                         <option value="TITANIUM">TITANIUM</option>
                                         <option value="SILVER">SILVER</option>
@@ -139,29 +171,35 @@
                                 </div>
                             </form>
                             <div class="modal-footer" v-if="newCardType != 0 && newCardColor != 0">
-                                <input @click="createCard" type="submit" class="btn-sendTansfer" />
+                                <button @click="createCard" type="submit" class="btn-sendTansfer" >Send!</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="main__cards ">
+                <div class="main__cards">
                     <div class="card card--finance d-flex justify-content-center">
                         <div class="card__header">
                             <div class="card__header-title text-light">Your <strong>Credit Cards</strong>
                             </div>
                         </div>
-                        <div class="containerCards ">
+                        <div class="containerCards" v-if="creditCard.length > 0">
                             <div class="card__main m-3" v-for="card of creditCard">
                                 <div class="creditCard mt-2 mb-2">
                                     <div class="face front"
                                         :class="card.cardColor == 'GOLD' ? 'gold' : card.cardColor == 'SILVER' ? 'silver' : 'titanium'">
+                                        <span class="badge text-bg-danger position-absolute top-0 w-50 end-0"
+                                            style="z-index: 2; height: 30px; font-size:15px;"
+                                            v-if="card.thruDate == dateActuallyslices">Expires this Month!</span>
+                                        <span class="badge text-bg-danger position-absolute top-0 w-50 end-0"
+                                            style="z-index: 2; height: 30px; font-size:15px;"
+                                            v-if="card.thruDate < dateActuallyslices">This card expired!</span>
                                         <h3 class="m-3 fw-semibold text-light">{{card.cardColor}}</h3>
                                         <h2 class="bank"><img src="/web/assets/img/hb.png" class="" alt=""
                                                 id="cardLogo">
                                         </h2>
                                         <img class="cips" src="/web/assets/img/chip.png" alt="" id="cardChip">
                                         <h3 class="number">{{card.cardNumber}}</h3>
-                                        <h5 class="valid"><span>Expires<br></span><span>{{card.fromDate}}</span>
+                                        <h5 class="valid"><span>Expires<br></span><span>{{card.thruDate}}</span>
                                         </h5>
                                         <div class="col-10 cardHolder d-flex justify-content-between align-items-end">
                                             <h5>{{card.cardHolder}}</h5>
@@ -195,16 +233,25 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card__row  justify-content-center fs-3 fw-bold text-center" v-else>
+                            <p>Does not have cards of this type, we recommend requesting a new one</p>
+                        </div>
                     </div>
                 </div>
                 <div class="main__cards ">
-                    <div class="card card--finance d-flex justify-content-center">
+                    <div class="card card--finance d-flex justify-content-center text-center">
                         <div class="card__header">
                             <div class="card__header-title text-light">Your <strong>Debit Cards</strong>
                             </div>
                         </div>
-                        <div class="containerCards ">
+                        <div class="containerCards " v-if="debitCard.length>0">
                             <div class="card__main m-3" v-for="card of debitCard">
+                                <span class="badge text-bg-danger position-absolute top-0 w-50 end-0"
+                                    style="z-index: 2; height: 30px; font-size:15px;"
+                                    v-if="card.thruDate == dateActuallyslices">Expires this Month!</span>
+                                <span class="badge text-bg-danger position-absolute top-0 w-50 end-0"
+                                    style="z-index: 2; height: 30px; font-size:15px;"
+                                    v-if="card.thruDate < dateActuallyslices">This card expired!</span>
                                 <div class="creditCard mt-2 mb-2">
                                     <div class="face front"
                                         :class="card.cardColor == 'GOLD' ? 'gold' : card.cardColor == 'SILVER' ? 'silver' : 'titanium'">
@@ -214,7 +261,7 @@
                                         </h2>
                                         <img class="cips" src="/web/assets/img/chip.png" alt="" id="cardChip">
                                         <h3 class="number">{{card.cardNumber}}</h3>
-                                        <h5 class="valid"><span>Expires<br></span><span>{{card.fromDate}}</span>
+                                        <h5 class="valid"><span>Expires<br></span><span>{{card.thruDate}}</span>
                                         </h5>
                                         <div class="col-10 cardHolder d-flex justify-content-between align-items-end">
                                             <h5>{{card.cardHolder}}</h5>
@@ -247,16 +294,21 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="card__row  justify-content-center fs-3 fw-bold" v-else>
+                            <p>Does not have cards of this type, we recommend requesting a new one</p>
                         </div>
                     </div>
                 </div>
             </main>
 
             <footer class="footer">
-                <p><span class="footer__copyright">&copy;</span> 2018 MTH</p>
-                <p>Crafted with <i class="fas fa-heart footer__icon"></i> by <a
-                        href="https://www.linkedin.com/in/matt-holland/" target="_blank" class="footer__signature">Matt
-                        H</a></p>
+                <div class="footer__header align-baseline">
+                    <img src="./assets/img/hb.png" alt="" id="logoFooter">
+                    <p><span class="footer__copyright">&copy;</span> 2022</p>
+                </div>
+                <p>Hubber's Bank by <a href="https://github.com/AlejandroTorresM" target="_blank"
+                        class="footer__signature">Alejandro, Torres Marambio</a></p>
             </footer>
         </div>
 

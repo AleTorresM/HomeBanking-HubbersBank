@@ -3,20 +3,22 @@ package com.Mindhub.Homebanking.controllers;
 
 import com.Mindhub.Homebanking.Services.CardsService;
 import com.Mindhub.Homebanking.Services.ClientService;
+import com.Mindhub.Homebanking.dtos.CardDTO;
 import com.Mindhub.Homebanking.models.*;
 import com.Mindhub.Homebanking.repository.AccountRepository;
 import com.Mindhub.Homebanking.repository.CardRepository;
 import com.Mindhub.Homebanking.repository.ClientRepository;
+import com.Mindhub.Homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -33,29 +35,45 @@ public class CardsController {
     private CardsService cardsService;
 
 
-    @RequestMapping( value =  "/clients/current/cards", method = RequestMethod.POST)
+
+    @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> createdCard(
             @RequestParam CardColor cardColor, @RequestParam CardType cardtype,
             Authentication authentication
     ) {
         Client client = clientService.findClientByEmail(authentication.getName());
-        if (client.getCards().stream().filter(card -> card.getCardtype().equals(cardtype)).filter(card -> card.getCardColor().equals(cardColor)).count()>0){
-            return new ResponseEntity<>("no tenes mas este color", HttpStatus.FORBIDDEN);
+        List<Card> cardListActive = client.getCards().stream().filter(card -> card.isCardActive()).collect(Collectors.toList());
+        if (cardListActive.stream().filter(card -> card.getCardtype().equals(cardtype)).filter(card -> card.getCardColor().equals(cardColor)).count()>0){
+            return new ResponseEntity<>("you can not have more of this color", HttpStatus.FORBIDDEN);
         }
-        if ((client.getCards().stream().filter(card -> card.getCardtype().equals(cardtype)).count() >= 3)) {
+        if ((cardListActive.stream().filter(card -> card.getCardtype().equals(cardtype)).count() >= 3)) {
             return new ResponseEntity<>("Clients can only have 3 cards of each type", HttpStatus.FORBIDDEN);
-        } else {
-        int ccvRandomNUmber = getRandomNumber(100,999);
-        String randomCardNumber = getRandomNumber(1000,9999)+" "+getRandomNumber(1000,9999)+" "+getRandomNumber(1000,9999)+" "+getRandomNumber(1000,9999);
-        while (cardsService.findByCardNumber(randomCardNumber)!= null){
-            randomCardNumber = getRandomNumber(1000,9999)+" "+getRandomNumber(1000,9999)+" "+getRandomNumber(1000,9999)+" "+getRandomNumber(1000,9999);
         }
-        Card card = new Card(client,client.getFirstName()+" "+client.getLastName() ,cardtype, cardColor, randomCardNumber, ccvRandomNUmber, LocalDate.now(), LocalDate.now().plusYears(5));
+        else {
+            int ccvRandomNumber = CardUtils.getCcvRandomNumber();
+            String randomCardNumber = CardUtils.getRandomCardNumber();
+            Card card = new Card(client,cardtype, cardColor, randomCardNumber, ccvRandomNumber, LocalDate.now().plusYears(5), LocalDate.now(),true);
         cardsService.saveCard(card);
         return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
-    public int getRandomNumber (int min, int max) {
-        return (int) ((Math.random() * ((max-min) + min)));
+
+    @PatchMapping("/clients/current/cards")
+    public ResponseEntity<Object> disableCard(
+            @RequestParam String cardNumber, Authentication authentication
+    ){
+      Client client = clientService.findClientByEmail(authentication.getName());
+      Card card = cardsService.findByCardNumber(cardNumber);
+      if (cardNumber.isEmpty()){
+          return new ResponseEntity<>("Please select card",HttpStatus.FORBIDDEN);
+      }if (!client.getCards().contains(card)){
+          return new ResponseEntity<>("This card is not yours",HttpStatus.FORBIDDEN);
+        }
+            card.setCardActive(false);
+            cardsService.saveCard(card);
+            return new ResponseEntity<>("Card disable", HttpStatus.ACCEPTED);
     }
+
 }
+
+

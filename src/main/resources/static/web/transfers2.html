@@ -39,7 +39,8 @@
             <aside class="sidenav">
                 <div class="sidenav__brand">
                     <i class="fa-solid fa-building-columns"></i>
-                    <a class="sidenav__brand-link" href="./dashboard2.html">Hubber's<span class="text-light"> bank</span></a>
+                    <a class="sidenav__brand-link" href="./dashboard2.html">Hubber's<span class="text-light">
+                            bank</span></a>
                     <i class="fas fa-times sidenav__brand-close"></i>
                 </div>
                 <div class="sidenav__profile">
@@ -57,7 +58,6 @@
                             </div>
                             <ul class="subList subList--hidden">
                                 <li class="subList__item"><a href="./dashboard2.html">Principal</a></li>
-                                <li class="subList__item"><a href="#"> new transaction</a></li>
                             </ul>
                         </li>
                         <li>
@@ -67,6 +67,7 @@
                             </div>
                             <ul class="subList subList--hidden">
                                 <li class="subList__item"><a href="./cards2.html"> Your cards</a></li>
+                                <li class="subList__item"><a href="./paymentcard.html">Payments</a></li>
                             </ul>
                         </li>
                         <li>
@@ -93,7 +94,8 @@
                     <div class="main-header__intro-wrapper">
                         <div class="main-header__welcome">
                             <div class="main-header__welcome-title text-light">Move your <strong>Money</strong></div>
-                            <div class="main-header__welcome-subtitle text-light">Do everything you need, everywhere at all times</div>
+                            <div class="main-header__welcome-subtitle text-light">Do everything you need, everywhere at
+                                all times</div>
                         </div>
                         <div class="quickview">
 
@@ -121,8 +123,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <form action="" @submit.prevent="" class="form">
+                            <div class="modal-body d-flex justify-content-around">
+                                <form action="" @submit.prevent="" class="formTransfer">
                                     <fieldset>
                                         <h4>Monto</h4>
                                         <input type="number" v-model="amount">
@@ -134,7 +136,9 @@
                                     <fieldset>
                                         <h4>Cuenta que envia:</h4>
                                         <select class="form-check" v-model="accSend">
-                                            <option :value="account.number" v-for="account in accounts">{{account.number}} - ${{account.balance.toLocaleString('es-MX')}}</option>
+                                            <option :value="account.number" v-for="account in activeAccounts">
+                                                {{account.number}} - ${{account.balance.toLocaleString('es-MX')}}
+                                            </option>
                                         </select>
                                     </fieldset>
                                     <fieldset>
@@ -146,7 +150,8 @@
                                     </fieldset>
                                     <fieldset v-if="transAccSelect == 'cuentaPropia'">
                                         <select class="form-check" v-model="accRecive">
-                                            <option :value="account.number" v-for="account in accounts">{{account.number}}</option>
+                                            <option :value="account.number" v-for="account in activeAccounts">
+                                                {{account.number}}</option>
                                         </select>
                                     </fieldset>
                                     <fieldset class="mt-4" v-if="transAccSelect == 'cuentaTercero'">
@@ -154,9 +159,12 @@
                                     </fieldset>
                                 </form>
                             </div>
-                            <div class="modal-footer">
+                            <div class="modal-footer d-flex justify-content-end">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-sendTansfer" @click="newTransactions">Send</button>
+                                <button type="button" class="btn btn-sendTansfer ms-2" @click="newTransactions">
+                                    <span class="btn-text-one">Send</span>
+                                    <span class="btn-text-two">Great!</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -165,6 +173,12 @@
                     <div class="card card--finance d-flex justify-content-center">
                         <div class="card__header">
                             <div class="card__header-title text-light">Account <strong>Transfer</strong>
+                            </div>
+                            <div class="card__header-title text-light">
+                                {{account.accountType}} ACCOUNT: {{account.number}}
+                            </div>
+                            <div  class="card__header-title text-light">
+                                Current balance: ${{account.balance}}
                             </div>
                         </div>
                         <div class="card__main">
@@ -179,7 +193,9 @@
                                     <div class="card__source text-bold" style="color: green;"
                                         v-if="transaction.type == 'CREDIT'">{{transaction.type}}</div>
                                     <div class="card__description">{{transaction.description}}</div>
-                                    <div class="card__note">{{transaction.amount.toLocaleString('es-MX')}}</div>
+                                    <div class="card__note">$ {{transaction.amount.toLocaleString('es-MX')}}</div>
+                                    <div class="card__note">Post transfer balance: ${{transaction.postTransaction.toLocaleString('es-MX')}}</div>
+                                    <div class="card__note">Previus transfer balance: ${{transaction.afterTransaction.toLocaleString('es-MX')}}</div>
                                 </div>
                             </div>
                         </div>
@@ -188,10 +204,12 @@
             </main>
 
             <footer class="footer">
-                <p><span class="footer__copyright">&copy;</span> 2018 MTH</p>
-                <p>Crafted with <i class="fas fa-heart footer__icon"></i> by <a
-                        href="https://www.linkedin.com/in/matt-holland/" target="_blank" class="footer__signature">Matt
-                        H</a></p>
+                <div class="footer__header align-baseline">
+                    <img src="./assets/img/hb.png" alt="" id="logoFooter">
+                    <p><span class="footer__copyright">&copy;</span> 2022</p>
+                </div>
+                <p>Hubber's Bank by <a href="https://github.com/AlejandroTorresM" target="_blank"
+                        class="footer__signature">Alejandro, Torres Marambio</a></p>
             </footer>
         </div>
 

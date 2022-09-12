@@ -23,6 +23,10 @@ public class Transaction {
     private double amount;
     private LocalDateTime dateCreation;
 
+    private double postTransaction;
+
+    private double afterTransaction;
+
     public Transaction (){}
 
     public Transaction(TransactionType type, String description, double amount, LocalDateTime dateCreation) {
@@ -38,6 +42,8 @@ public class Transaction {
         this.description = description;
         this.amount = amount;
         this.dateCreation = dateCreation;
+        this.postTransaction = account.getBalance()+amount;
+        this.afterTransaction = account.getBalance();
     }
 
 
@@ -79,10 +85,24 @@ public class Transaction {
         this.id = id;
     }
 
+    public double getPostTransaction() {
+        return postTransaction;
+    }
+    public void setPostTransaction(double postTransaction) {
+        this.postTransaction = postTransaction;
+    }
+
     public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 
+
+    public double getAfterTransaction() {
+        return afterTransaction;
+    }
+    public void setAfterTransaction(double afterTransaction) {
+        this.afterTransaction = afterTransaction;
+    }
 
     public void setAccount(Account account) {this.account = account;}
 }

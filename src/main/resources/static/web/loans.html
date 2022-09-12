@@ -40,7 +40,8 @@
             <aside class="sidenav">
                 <div class="sidenav__brand">
                     <i class="fa-solid fa-building-columns"></i>
-                    <a class="sidenav__brand-link" href="./dashboard2.html">Hubber's<span class="text-light"> bank</span></a>
+                    <a class="sidenav__brand-link" href="./dashboard2.html">Hubber's<span class="text-light">
+                            bank</span></a>
                     <i class="fas fa-times sidenav__brand-close"></i>
                 </div>
                 <div class="sidenav__profile">
@@ -58,7 +59,6 @@
                             </div>
                             <ul class="subList subList--hidden">
                                 <li class="subList__item"><a href="./dashboard2.html">Principal</a></li>
-                                <li class="subList__item"><a href="./transfers2.html"> new transaction</a></li>
                             </ul>
                         </li>
                         <li>
@@ -68,6 +68,7 @@
                             </div>
                             <ul class="subList subList--hidden">
                                 <li class="subList__item"><a href="./cards2.html"> Your cards</a></li>
+                                <li class="subList__item"><a href="./paymentcard.html">Payments</a></li>
                             </ul>
                         </li>
                         <li>
@@ -94,15 +95,16 @@
                     <div class="main-header__intro-wrapper">
                         <div class="main-header__welcome">
                             <div class="main-header__welcome-title text-light">
-                                Are you looking for how to<strong> make that dream </strong>come true? <br> Let's apply for a loan</div>
-                            
+                                Are you looking for how to<strong> make that dream </strong>come true? <br> Let's apply
+                                for a loan</div>
+
                         </div>
                         <div class="quickview">
 
                         </div>
                     </div>
                 </div>
-                <div class="main-overview">
+                <div class="main-overview" v-if="clientLoans.length < 3">
                     <div class="overviewCard " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <div class="overviewCard-icon overviewCard-icon--photo">
                             <i class="fa-solid fa-plus"></i>
@@ -114,7 +116,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Modal -->
+                <!-- Modal Loan -->
                 <div class="modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -167,7 +169,7 @@
                                     <fieldset class="d-flex ms-3 mt-4">
                                         <h6>Account N° to deposit:</h6>
                                         <select name="" id="" v-model="accDestiny" class="form-check ms-3">
-                                            <option :value="account.number" v-for="account in clientAccount">
+                                            <option :value="account.number" v-for="account in activeAccounts">
                                                 {{account.number}} - ${{account.balance.toLocaleString('es-MX')}}
                                             </option>
                                         </select>
@@ -175,33 +177,107 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" @click="createLoan">Send</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-sendTansfer" @click="createLoan">
+                                    <span class="btn-text-one">Apply for</span>
+                                    <span class="btn-text-two">Great!</span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Fin Modal Loan -->
+
+                <div class="container" v-show="clientLoans.length < 3">
+                    <table class="table table-striped table-bordered border-dark" v-for="loan in loanAutomotriz" >
+                        <thead>
+                            <tr>
+                                <th scope="row" colspan="4">{{loan.nameLoan}}</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr>
+                                <th scope="col">Max amount</th>
+                                <th scope="col">Payments</th>
+                                <th scope="col">Interest per installment</th>
+                            </tr>
+                            <tr>
+                                <th scope="row">$ {{loan.amount.toLocaleString('es-MX')}}</th>
+                                <td>{{loan.payment}}</td>
+                                <td>[20%, 25%, 30%, 40%]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped table-bordered border-success" v-for="loan in loanHipotecario" >
+                        <thead>
+                            <tr>
+                                <th scope="row" colspan="4">{{loan.nameLoan}}</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr>
+                                <th scope="col">Max amount</th>
+                                <th scope="col">Payments</th>
+                                <th scope="col">Interest per installment</th>
+                            </tr>
+                            <tr>
+                                <th scope="row">$ {{loan.amount.toLocaleString('es-MX')}}</th>
+                                <td>{{loan.payment}}</td>
+                                <td>[ 25%, 30%, 40%, 45%, 50%]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped table-bordered border-primary" v-for="loan in loanPersonal" >
+                        <thead>
+                            <tr>
+                                <th scope="row" colspan="4">{{loan.nameLoan}}</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr>
+                                <th scope="col">Max amount</th>
+                                <th scope="col">Payments</th>
+                                <th scope="col">Interest per installment</th>
+                            </tr>
+                            <tr>
+                                <th scope="row">$ {{loan.amount.toLocaleString('es-MX')}}</th>
+                                <td>{{loan.payment}}</td>
+                                <td>[20%, 25%, 30%]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <div class="containerLoans">
                     <div class="card" v-for="loan in clientLoans"
-                        :class="loan.loan == 'Automotriz' ? 'card0' : loan.loan == 'Personal' ? 'card1' : 'card2'">
+                        :class="loan.loan == 'Automotriz' ? 'card0' : loan.loan == 'Personal' ? 'card1' : 'card2'"
+                        v-if="clientLoans.length>0">
                         <div class="border">
                             <h4>{{loan.loan}}</h4>
                             <div class="icons">
-                                <i class="fa-solid fa-sack-dollar" aria-hidden="true"> {{loan.amount.toLocaleString('es-MX')}}</i>
+                                <i class="fa-solid fa-sack-dollar" aria-hidden="true">
+                                    {{loan.amount.toLocaleString('es-MX')}}</i>
                                 <i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"> {{loan.payment}}</i>
                             </div>
                         </div>
+                    </div>
+                    <div class="card__row  justify-content-center fs-3 fw-bold text-center" v-else>
+                        <p>You do not have pending loans, we invite you to request a new one.</p>
                     </div>
                 </div>
 
             </main>
 
             <footer class="footer">
-                <p><span class="footer__copyright">&copy;</span> 2018 MTH</p>
-                <p>Crafted with <i class="fas fa-heart footer__icon"></i> by <a
-                        href="https://www.linkedin.com/in/matt-holland/" target="_blank" class="footer__signature">Matt
-                        H</a></p>
+                <div class="footer__header align-baseline">
+                    <img src="./assets/img/hb.png" alt="" id="logoFooter">
+                    <p><span class="footer__copyright">&copy;</span> 2022</p>
+                </div>
+                <p>Hubber's Bank by <a href="https://github.com/AlejandroTorresM" target="_blank"
+                        class="footer__signature">Alejandro, Torres Marambio</a></p>
             </footer>
         </div>
 

@@ -5,12 +5,15 @@ createApp({
         return {
             arrayClientSelected: [],
             clientAccount: [],
+            activeAccounts: [],
             clientLoans:[],
             clientTransactions:{},
             client: [],
             clientCards:[],
             cardsCredit: [],
             cardsDebit: [],
+            accountTypes:"",
+            accountDisable: "",
             newCardType:"",
             newCardColor:"",
         };
@@ -35,31 +38,44 @@ createApp({
             axios.get("/api/clients/current").then((e) => {
                 this.client = e.data;
                 this.clientAccount = e.data.accounts;
+                this.activeAccounts = this.clientAccount.filter(account => account.accountActive).sort((a,b) => b.id - a.id);
                 this.clientLoans = e.data.loans;
                 this.clientCards = e.data.cards
                 this.cardsDebit = this.clientCards.filter(card => card.type === "DEBIT")
                 this.cardsCredit = this.clientCards.filter(card => card.type === "CREDIT")
                 this.formatDate(this.clientCards);
-              console.log(this.clientAccount);
+              console.log(this.activeAccounts);
             });
         },
         allTransactions() {
           axios.get("/api/transactions").then((e) =>{
-            this.clientTransactions = e.data;
+            this.clientTransactions = e.data
+            this.clientTransactions.sort((a,b) => b.id - a.id);
             console.log(this.clientTransactions);
           })
         },
-        createAccount(){
-          axios.post('/api/clients/current/accounts/', `clientEmail=${this.client.email}`,{headers: {'Content-type': 'application/x-www-form-urlencoded'}})
+        disableAccount() {
+          axios.patch("/api/clients/current/accounts", `accountNumber=${this.accountDisable}`,{headers: {'Content-type': 'application/x-www-form-urlencoded'}})
           .then(()=>Swal.fire({
             position: 'center',
-            icon: 'success',
-            title: 'Tu cuenta ah sido creada',
+            icon: 'error',
+            title: 'Account Deleted',
             showConfirmButton: false,
             timer: 1000
           }))
-          .catch(Swal.fire('No puedes tener mas cuentas.')
-          )
+          .then(()=>window.location.reload())
+          .catch(Swal.fire(error.response.data))
+        },
+        createAccount(){
+          axios.post('/api/clients/current/accounts/', `accountType=${this.accountTypes}`,{headers: {'Content-type': 'application/x-www-form-urlencoded'}})
+          .then(()=>Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Account Create',
+            showConfirmButton: false,
+            timer: 1000
+          }))
+          .catch(Swal.fire(`${error.response.data}`))
           .then(()=>window.location.reload())
         },
         logout(){
@@ -68,7 +84,7 @@ createApp({
     formatDate(date){
       newDate = new Date(date).toLocaleString();
       return newDate
-    }
+    },
       },
     computed: {},
     update: {},

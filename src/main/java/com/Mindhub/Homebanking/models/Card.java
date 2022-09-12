@@ -27,28 +27,23 @@ public class Card {
     private LocalDate thruDate;
     private LocalDate fromDate;
 
+    private boolean cardActive = true;
+
     public Card (){}
 
-    public Card(Client client, String cardHolder, CardType cardtype, CardColor cardColor, String cardNumber, Integer cvv, LocalDate thruDate, LocalDate fromDate) {
+
+    public Card(Client client, CardType cardtype, CardColor cardColor, String cardNumber, Integer cvv, LocalDate thruDate, LocalDate fromDate, Boolean cardActive) {
         this.client = client;
-        this.cardHolder = cardHolder;
+        this.cardHolder = client.getFirstName() + " " + client.getLastName();
         this.cardtype = cardtype;
         this.cardColor = cardColor;
         this.cardNumber = cardNumber;
         this.cvv = cvv;
         this.thruDate = thruDate;
         this.fromDate = fromDate;
+        this.cardActive= cardActive;
     }
 
-    public Card(Client client, CardType cardtype, CardColor cardColor, String cardNumber, Integer cvv, LocalDate thruDate, LocalDate fromDate) {
-        this.cardHolder = (client.getFirstName() +" "+ client.getLastName());
-        this.cardtype = cardtype;
-        this.cardColor = cardColor;
-        this.cardNumber = cardNumber;
-        this.cvv = cvv;
-        this.thruDate = thruDate;
-        this.fromDate = fromDate;
-    }
 
     public long getId() {
         return id;
@@ -118,5 +113,13 @@ public class Card {
     }
     public void setCardHolder(String cardHolder) {
         this.cardHolder = cardHolder;
+    }
+
+    public boolean isCardActive() {
+        return cardActive;
+    }
+
+    public void setCardActive(boolean cardActive) {
+        this.cardActive = cardActive;
     }
 }

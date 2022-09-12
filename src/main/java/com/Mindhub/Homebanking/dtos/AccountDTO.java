@@ -1,6 +1,7 @@
 package com.Mindhub.Homebanking.dtos;
 
 import com.Mindhub.Homebanking.models.Account;
+import com.Mindhub.Homebanking.models.AccountType;
 import com.Mindhub.Homebanking.models.Client;
 import com.Mindhub.Homebanking.models.Transaction;
 import net.minidev.json.annotate.JsonIgnore;
@@ -14,6 +15,9 @@ public class AccountDTO {
     private double balance;
     private long id;
 
+    private AccountType accountType;
+
+    private boolean accountActive;
 
 
     public AccountDTO(){}
@@ -24,7 +28,11 @@ public class AccountDTO {
         this.createDate = account.getCreateDate();
         this.balance = account.getBalance();
        this.transactions = account.getTransaction();
+       this.accountType= account.getAccountType();
+       this.accountActive = account.isAccountActive();
     }
+
+
 
 
     private Set<Transaction> transactions;
@@ -54,6 +62,14 @@ public class AccountDTO {
     }
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public boolean isAccountActive() {
+        return accountActive;
     }
 
     public long getId() {

@@ -8,6 +8,7 @@ createApp({
             queryString: '',
             client: {},
             accounts: [],
+            activeAccounts: [],
             transactions: [],
             cards: [],
             account: [],
@@ -33,7 +34,8 @@ createApp({
         .then(e=>{
             this.client = e.data
             this.accounts = e.data.accounts; 
-            console.log(this.accounts)
+            this.activeAccounts = this.accounts.filter(account => account.accountActive).sort((a,b) => b.id - a.id)
+            console.log(this.activeAccounts)
             this.accountTransactions();
         })
     },
@@ -42,7 +44,7 @@ createApp({
       .then(e=>{
           this.account = e.data
           this.accountTransaction = this.account.transaction
-          console.log(this.accountTransaction)
+          console.log(this.account)
       })
   },
   formatDate(date){
