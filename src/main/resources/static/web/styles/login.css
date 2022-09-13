@@ -35,6 +35,10 @@ input {
   left: 0;
 }
 
+#logoLogin{
+  width: 80px;
+}
+
 .signin-signup {
   position: absolute;
   top: 50%;
@@ -284,6 +288,18 @@ form.sign-in-form {
   pointer-events: all;
 }
 
+@media (min-width: 1440px){
+  #logoLogin{
+    width: 200px;
+  }
+}
+
+@media (max-width: 1024px){
+  #logoLogin{
+    width: 160px;
+  }
+}
+
 @media (max-width: 870px) {
   .container {
     min-height: 800px;
@@ -334,6 +350,9 @@ form.sign-in-form {
     transition-delay: 0.8s;
   }
 
+  #logoLogin{
+    width: 150px;
+  }
   .panel h3 {
     font-size: 1.2rem;
   }
@@ -390,6 +409,10 @@ form.sign-in-form {
 @media (max-width: 570px) {
   form {
     padding: 0 1.5rem;
+  }
+
+  #logoLogin{
+    width: 100px;
   }
 
   .image {
