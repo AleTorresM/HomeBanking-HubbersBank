@@ -112,6 +112,15 @@
                             <p class="overviewCard-subtitle">Move your money</p>
                         </div>
                     </div>
+                    <div class="overviewCard " data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                        <div class="overviewCard-icon overviewCard-icon--document">
+                            <i class="fa-solid fa-print"></i>
+                        </div>
+                        <div class="overviewCard-description">
+                            <h3 class="overviewCard-title text-dark">Downald <strong>Account Summary</strong></h3>
+                            <p class="overviewCard-subtitle">Check transfer status</p>
+                        </div>
+                    </div>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -169,6 +178,44 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">New Account Summary</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body d-flex justify-content-around">
+                                <form action="">
+                                    <fieldset>
+                                        <label for="" class="me-2">Start date:</label>
+                                        <input type="date" name="" id="" v-model="fromDate" class="ms-2">
+                                    </fieldset>
+                                    <fieldset>
+                                        <label for="" class="me-2">End date:</label>
+                                        <input type="date" name="" id="" v-model="toDate" class="ms-2">
+                                    </fieldset>
+                                    <fieldset>
+                                        <label for="" class="me-2">Select Account</label>
+                                        <select name="" id="" v-model="accountPrint">
+                                            <option value="" selected disabled>choose...</option>
+                                            <option :value="account.number" v-for="account in activeAccounts">{{account.number}}</option>
+                                        </select>
+                                    </fieldset>
+                                </form>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-end">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-sendTansfer ms-2" @click="generateTransactionPdf">
+                                    <span class="btn-text-one">Send</span>
+                                    <span class="btn-text-two">Great!</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="main__cards ">
                     <div class="card card--finance d-flex justify-content-center">
                         <div class="card__header">
@@ -177,7 +224,7 @@
                             <div class="card__header-title text-light">
                                 {{account.accountType}} ACCOUNT: {{account.number}}
                             </div>
-                            <div  class="card__header-title text-light">
+                            <div class="card__header-title text-light">
                                 Current balance: ${{account.balance}}
                             </div>
                         </div>
@@ -194,8 +241,10 @@
                                         v-if="transaction.type == 'CREDIT'">{{transaction.type}}</div>
                                     <div class="card__description">{{transaction.description}}</div>
                                     <div class="card__note">$ {{transaction.amount.toLocaleString('es-MX')}}</div>
-                                    <div class="card__note">Post transfer balance: ${{transaction.postTransaction.toLocaleString('es-MX')}}</div>
-                                    <div class="card__note">Previus transfer balance: ${{transaction.afterTransaction.toLocaleString('es-MX')}}</div>
+                                    <div class="card__note">Post transfer balance:
+                                        ${{transaction.postTransaction.toLocaleString('es-MX')}}</div>
+                                    <div class="card__note">Previus transfer balance:
+                                        ${{transaction.afterTransaction.toLocaleString('es-MX')}}</div>
                                 </div>
                             </div>
                         </div>

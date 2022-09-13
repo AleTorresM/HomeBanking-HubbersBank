@@ -18,6 +18,9 @@ createApp({
             accRecive:'',
             transDescription:'',
             transAccSelect:'',
+            fromDate:'',
+            toDate:'',
+            accountPrint: '',
         };
     },
     created() {
@@ -65,6 +68,16 @@ createApp({
           .catch(error => Swal.fire(error.response.data))
         }
       })
+    },
+    generateTransactionPdf(){
+      this.fromDate = new Date(this.fromDate).toISOString()
+      this.toDate = new Date(this.toDate).toISOString()
+      axios.post('/api/transactions/filtered', {fromDate:`${this.fromDate}`,toDate:`${this.toDate}`,accountNumber:`${this.accountPrint}`})
+      .then(() =>
+              Swal.fire("okay! your file has been downloaded", "", "success")
+            )
+      .then(() => window.location.reload())
+      .catch((error) => Swal.fire(error.response.data));
     },
         logout(){
         axios.post('/api/logout').then(()=>window.location.href="/web/index.html")

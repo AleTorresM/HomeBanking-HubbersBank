@@ -1115,6 +1115,19 @@ a:hover {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
     overflow: hidden;
 }
+.btn--resumen{
+    width: 120px;
+    height: 40px;
+    background: linear-gradient(to top, #e7e7e7, #686869, #23487f);
+    color: var(--color1);
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
 
 .btn-sendTansfer span {
     font-size: 12px;
