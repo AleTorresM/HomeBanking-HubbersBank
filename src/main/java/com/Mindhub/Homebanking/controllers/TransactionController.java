@@ -107,7 +107,7 @@ public class TransactionController {
         Client client = clientService.findClientByEmail(authentication.getName());
         Account account = accountService.findByNumber(paymentApplicationDTO.getAccountNumber());
         Card card = cardsService.findByCardNumber(paymentApplicationDTO.getCardNumber());
-
+        
         if (!card.isCardActive()){
             return new ResponseEntity<>("you card is disable",HttpStatus.FORBIDDEN);
         }if (!paymentApplicationDTO.getThruDate().isAfter(LocalDate.now())){
@@ -118,7 +118,10 @@ public class TransactionController {
             return new ResponseEntity<>("account without balance", HttpStatus.FORBIDDEN);
         }if(!account.isAccountActive()){
             return new ResponseEntity<>("account disable, please choose another account", HttpStatus.FORBIDDEN);
+        }if(!card.getCvv().equals(paymentApplicationDTO.getCardCvv())){
+            return new ResponseEntity<>("cvv not same", HttpStatus.FORBIDDEN);
         }
+
         Transaction transactionPay = new Transaction(account,TransactionType.DEBIT, paymentApplicationDTO.getDescription(), -paymentApplicationDTO.getAmount(), LocalDateTime.now());
         transactionService.saveTransaction(transactionPay);
         account.setBalance(account.getBalance()-paymentApplicationDTO.getAmount());

@@ -182,7 +182,10 @@
                                 <div class="grupo expira">
                                     <label for="selectMes">Expiracion</label>
                                     <div class="flexbox">
-                                    <input type="text" name="" id="" placeholder="YYYY-MM-DD" v-model="payDateTrhu">
+                                    <select name="" id="" v-model="payDateTrhu">
+                                        <option value="" selected disabled>date expire...</option>
+                                        <option :value="card.thruDate" v-for="card in cardsActive">{{card.thruDate.slice(2,7)}} from to: {{card.cardNumber}}</option>
+                                    </select>
                                     </div>
                                 </div>
                                 

@@ -200,7 +200,7 @@
                                         </h2>
                                         <img class="cips" src="/web/assets/img/chip.png" alt="" id="cardChip">
                                         <h3 class="number">{{card.cardNumber}}</h3>
-                                        <h5 class="valid"><span>Expires<br></span><span>{{card.thruDate}}</span>
+                                        <h5 class="valid"><span>Expires<br></span><span>{{card.thruDate.slice(2,7)}}</span>
                                         </h5>
                                         <div class="col-10 cardHolder d-flex justify-content-between align-items-end">
                                             <h5>{{card.cardHolder}}</h5>
@@ -262,7 +262,7 @@
                                         </h2>
                                         <img class="cips" src="/web/assets/img/chip.png" alt="" id="cardChip">
                                         <h3 class="number">{{card.cardNumber}}</h3>
-                                        <h5 class="valid"><span>Expires<br></span><span>{{card.thruDate}}</span>
+                                        <h5 class="valid"><span>Expires<br></span><span>{{card.thruDate.slice(2,7)}}</span>
                                         </h5>
                                         <div class="col-10 cardHolder d-flex justify-content-between align-items-end">
                                             <h5>{{card.cardHolder}}</h5>

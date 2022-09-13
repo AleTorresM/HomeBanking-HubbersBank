@@ -12,7 +12,7 @@ public class PaymentApplicationDTO {
 
     private String cardNumber;
 
-    private int cardCvv;
+    private Integer cardCvv;
 
     private double amount;
 
@@ -41,26 +41,18 @@ public class PaymentApplicationDTO {
     public long getId() {
         return id;
     }
-    public void setId(long id) {
-        this.id = id;
-    }
+
 
 
 
     public String getCardNumber() {
         return cardNumber;
     }
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
 
 
 
-    public int getCardCvv() {
+    public Integer getCardCvv() {
         return cardCvv;
-    }
-    public void setCardCvv(int cardCvv) {
-        this.cardCvv = cardCvv;
     }
 
 
@@ -68,26 +60,19 @@ public class PaymentApplicationDTO {
     public double getAmount() {
         return amount;
     }
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+
 
 
 
     public String getDescription() {
         return description;
     }
-    public void setDescription(String description) {
-        this.description = description;
-    }
+
 
 
 
     public LocalDate getThruDate() {
         return thruDate;
-    }
-    public void setThruDate(LocalDate thruDate) {
-        this.thruDate = thruDate;
     }
 
 
@@ -95,18 +80,14 @@ public class PaymentApplicationDTO {
     public String getCardHolder() {
         return cardHolder;
     }
-    public void setCardHolder(String cardHolder) {
-        this.cardHolder = cardHolder;
-    }
+
 
 
 
     public String getAccountNumber() {
         return accountNumber;
     }
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
+
 
 
 }
