@@ -773,7 +773,6 @@ a:hover {
 .footer {
     grid-area: footer;
     display: flex;
-    min-height: 10vh;
     align-items: center;
     justify-content: space-between;
     padding: 0 16px;

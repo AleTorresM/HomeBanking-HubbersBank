@@ -215,8 +215,9 @@
                         </div>
                         <div v-for="account in activeAccounts">
                             <a :href="'./transfers2.html?id='+account.id">
-                                <div class="overviewCard" >
-                                    <div class="overviewCard-icon " :class="account.accountType == 'SAVING' ? 'overviewCard-icon--calendar' : 'overviewCard-icon--document'">
+                                <div class="overviewCard">
+                                    <div class="overviewCard-icon "
+                                        :class="account.accountType == 'SAVING' ? 'overviewCard-icon--calendar' : 'overviewCard-icon--document'">
                                         <i class="fa-solid fa-wallet"></i>
                                     </div>
                                     <div class="overviewCard-description ms-4">
