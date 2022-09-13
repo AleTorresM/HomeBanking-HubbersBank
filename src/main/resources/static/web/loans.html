@@ -135,37 +135,35 @@
                                             </option>
                                         </select>
                                     </fieldset>
-                                    <div class="d-flex align-items-center">
-                                        <fieldset class="d-flex ms-3 mt-4">
-                                            <h6>Selected amount:</h6>
-                                            <input type="number" name="" id="" class="ms-1"
-                                                style="width: 100px; height: 30px;" v-model="newAmount" required>
-                                        </fieldset>
-                                        <fieldset class="d-flex ms-3 mt-4" v-if="loanNameChoose == 'Automotriz'">
-                                            <h6>How many installments do you want to pay?</h6>
-                                            <select class="ms-3 " style="width: 100px; height: 30px;"
-                                                v-model="newPaymentLoan" v-for="loan in loanAutomotriz">
-                                                <option :value="payment" v-for="payment in loan.payment">{{payment}}
-                                                </option>
-                                            </select>
-                                        </fieldset>
-                                        <fieldset class="d-flex ms-3 mt-4" v-if="loanNameChoose == 'Personal'">
-                                            <h6>How many installments do you want to pay?</h6>
-                                            <select class=" ms-3" style="width: 100px; height: 30px;"
-                                                v-model="newPaymentLoan" v-for="loan in loanPersonal">
-                                                <option :value="payment" v-for="payment in loan.payment">{{payment}}
-                                                </option>
-                                            </select>
-                                        </fieldset>
-                                        <fieldset class="d-flex ms-3 mt-4" v-if="loanNameChoose == 'Hipotecario'">
-                                            <h6>How many installments do you want to pay?</h6>
-                                            <select class="ms-3" style="width: 100px; height: 30px;"
-                                                v-model="newPaymentLoan" v-for="loan in loanHipotecario">
-                                                <option :value="payment" v-for="payment in loan.payment">{{payment}}
-                                                </option>
-                                            </select>
-                                        </fieldset>
-                                    </div>
+                                    <fieldset class="d-flex ms-3 mt-4">
+                                        <h6>Selected amount:</h6>
+                                        <input type="number" name="" id="" class="ms-1"
+                                            style="width: 100px; height: 30px;" v-model="newAmount" required>
+                                    </fieldset>
+                                    <fieldset class="d-flex ms-3 mt-4" v-if="loanNameChoose == 'Automotriz'">
+                                        <h6>How many installments do you want to pay?</h6>
+                                        <select class="ms-3 " style="width: 100px; height: 30px;"
+                                            v-model="newPaymentLoan" v-for="loan in loanAutomotriz">
+                                            <option :value="payment" v-for="payment in loan.payment">{{payment}}
+                                            </option>
+                                        </select>
+                                    </fieldset>
+                                    <fieldset class="d-flex ms-3 mt-4" v-if="loanNameChoose == 'Personal'">
+                                        <h6>How many installments do you want to pay?</h6>
+                                        <select class=" ms-3" style="width: 100px; height: 30px;"
+                                            v-model="newPaymentLoan" v-for="loan in loanPersonal">
+                                            <option :value="payment" v-for="payment in loan.payment">{{payment}}
+                                            </option>
+                                        </select>
+                                    </fieldset>
+                                    <fieldset class="d-flex ms-3 mt-4" v-if="loanNameChoose == 'Hipotecario'">
+                                        <h6>How many installments do you want to pay?</h6>
+                                        <select class="ms-3" style="width: 100px; height: 30px;"
+                                            v-model="newPaymentLoan" v-for="loan in loanHipotecario">
+                                            <option :value="payment" v-for="payment in loan.payment">{{payment}}
+                                            </option>
+                                        </select>
+                                    </fieldset>
                                     <fieldset class="d-flex ms-3 mt-4">
                                         <h6>Account N° to deposit:</h6>
                                         <select name="" id="" v-model="accDestiny" class="form-check ms-3">
@@ -189,14 +187,14 @@
                 <!-- Fin Modal Loan -->
 
                 <div class="container" v-show="clientLoans.length < 3">
-                    <table class="table table-striped table-bordered border-dark" v-for="loan in loanAutomotriz" >
+                    <table class="table table-striped table-bordered border-dark" v-for="loan in loanAutomotriz">
                         <thead>
                             <tr>
                                 <th scope="row" colspan="4">{{loan.nameLoan}}</th>
-                                
+
                             </tr>
                         </thead>
-                        <tbody >
+                        <tbody>
                             <tr>
                                 <th scope="col">Max amount</th>
                                 <th scope="col">Payments</th>
@@ -209,14 +207,14 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-striped table-bordered border-success" v-for="loan in loanHipotecario" >
+                    <table class="table table-striped table-bordered border-success" v-for="loan in loanHipotecario">
                         <thead>
                             <tr>
                                 <th scope="row" colspan="4">{{loan.nameLoan}}</th>
-                                
+
                             </tr>
                         </thead>
-                        <tbody >
+                        <tbody>
                             <tr>
                                 <th scope="col">Max amount</th>
                                 <th scope="col">Payments</th>
@@ -229,14 +227,14 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-striped table-bordered border-primary" v-for="loan in loanPersonal" >
+                    <table class="table table-striped table-bordered border-primary" v-for="loan in loanPersonal">
                         <thead>
                             <tr>
                                 <th scope="row" colspan="4">{{loan.nameLoan}}</th>
-                                
+
                             </tr>
                         </thead>
-                        <tbody >
+                        <tbody>
                             <tr>
                                 <th scope="col">Max amount</th>
                                 <th scope="col">Payments</th>

@@ -557,7 +557,7 @@ a:hover {
 
 .card__header-title {
     margin: 0 20px;
-    font-size: 15px;
+    font-size: 12px;
     letter-spacing: 1.2px;
 }
 
@@ -777,12 +777,13 @@ a:hover {
     justify-content: space-between;
     padding: 0 16px;
     color: #fff;
+    font-size: 12px;
     background-color: var(--color2);
 }
 
 #logoFooter {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 
 .footer__copyright {
@@ -1228,6 +1229,9 @@ select {
     .creditCard .face.back .text {
         font-size: 11px;
     }
+    .footer{
+        font-size: 13px;
+    }
 }
 
 
@@ -1350,7 +1354,7 @@ select {
     }
 }
 
-@media only screen and (min-width: 1050px) {
+@media only screen and (min-width: 1024px) {
     .containerCards {
         display: flex;
         justify-content: center;
@@ -1553,6 +1557,15 @@ select {
 
     .card__header-title{
         font-size: 20px;
+    }
+
+    .footer{
+        font-size: 20px;
+    }
+
+    #logoFooter {
+        width: 40px;
+        height: 40px;
     }
 
 }
