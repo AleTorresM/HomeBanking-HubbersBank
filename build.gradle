@@ -23,9 +23,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	//implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
-	implementation 'org.postgresql:postgresql'
+	//implementation 'org.postgresql:postgresql'
 	implementation 'com.itextpdf.maven:itextdoc:2.0.0'
-	//runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

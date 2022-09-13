@@ -27,7 +27,7 @@ public class HomebankingApplication {
 									  CardRepository cardRepository) {
 		return (args) -> {
 
-			/*Transaction num1 = new Transaction(TransactionType.DEBIT, "debit", -500, LocalDateTime.now());
+			Transaction num1 = new Transaction(TransactionType.DEBIT, "debit", -500, LocalDateTime.now());
 			Transaction melbaT2 = new Transaction(TransactionType.CREDIT, "credit", +1000, LocalDateTime.now().plusDays(1));
 			Transaction melbaT3 = new Transaction(TransactionType.CREDIT, "credit", +10000, LocalDateTime.now().minusDays(14));
 			Client client1 = new Client("Melba", "Laflor", "melbabot@gmail.com", passwordEncoder.encode("melbitadj"));
@@ -80,7 +80,7 @@ public class HomebankingApplication {
 			cardRepository.save(cardMelba);
 			cardRepository.save(cardMelba2);
 			cardRepository.save(cardClient2);
-			*/
+
 
 
 		};
