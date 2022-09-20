@@ -106,8 +106,8 @@ public class TransactionController {
     @CrossOrigin(origins = "http://localhost:8080")
     @Transactional
     @PostMapping("/transactions/payment")
-    public ResponseEntity<Object> paymentApp(@RequestBody PaymentApplicationDTO paymentApplicationDTO, Authentication authentication) {
-        Client client = clientService.findClientByEmail(authentication.getName());
+    public ResponseEntity<Object> paymentApp(@RequestBody PaymentApplicationDTO paymentApplicationDTO) {
+   
         Account account = accountService.findByNumber(paymentApplicationDTO.getAccountNumber());
         Card card = cardsService.findByCardNumber(paymentApplicationDTO.getCardNumber());
 
@@ -116,9 +116,6 @@ public class TransactionController {
         }
         if (!paymentApplicationDTO.getThruDate().isAfter(LocalDate.now())) {
             return new ResponseEntity<>("This card is expired", HttpStatus.FORBIDDEN);
-        }
-        if (!client.getCards().contains(card)) {
-            return new ResponseEntity<>("This card is not yours", HttpStatus.FORBIDDEN);
         }
         if (account.getBalance() < paymentApplicationDTO.getAmount()) {
             return new ResponseEntity<>("account without balance", HttpStatus.FORBIDDEN);
