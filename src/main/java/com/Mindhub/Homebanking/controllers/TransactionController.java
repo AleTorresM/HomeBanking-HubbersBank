@@ -102,7 +102,8 @@ public class TransactionController {
         client.getAccounts().stream().forEach(account -> account.getTransaction().stream().forEach(transaction -> clientTransactions.add(new TransactionDTO(transaction))));
         return clientTransactions;
     }
-
+    
+    @CrossOrigin(origins = "http://localhost:8080")
     @Transactional
     @PostMapping("/transactions/payment")
     public ResponseEntity<Object> paymentApp(@RequestBody PaymentApplicationDTO paymentApplicationDTO, Authentication authentication) {
