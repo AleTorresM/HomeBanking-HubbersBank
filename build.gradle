@@ -27,6 +27,7 @@ dependencies {
 	implementation 'com.itextpdf.maven:itextdoc:2.0.0'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.apache.httpcomponents:httpclient'
 }
 
 tasks.named('test') {
