@@ -18,13 +18,13 @@ createApp({
     mounted() {},
     methods: {
         login(){
-            axios.post('/api/login',`email=${this.inputEmail}&password=${this.inputPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            axios.post('/api/login',`email=${this.inputEmail}&password=${this.inputPassword}`)
             .then(()=>window.location.href="/web/dashboard2.html")
     },
         singUp(){
             axios.post('/api/clients',`firstName=${this.newName}&lastName=${this.newLast}&email=${this.newEmail}&password=${this.newPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
-            .then(()=> axios.post('/api/login',`email=${this.newEmail}&password=${this.newPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}}))
-            .then(()=> axios.post('/api/clients/current/accounts', `accountType=SAVING`),{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            .then(()=> axios.post('/api/login',`email=${this.newEmail}&password=${this.newPassword}`))
+            .then(()=> axios.post('/api/clients/current/accounts', `accountType=SAVING`))
             .then(()=>window.location.href="/web/dashboard2.html")
     },
 },
