@@ -1,5 +1,5 @@
 # HomeBanking-HubbersBank
-proyecto de homebanking
+proyecto Realizado con Java/spring---Vuejs
 
 https://hubbersbank.herokuapp.com/web/index.html
 ingresa mediante el link
